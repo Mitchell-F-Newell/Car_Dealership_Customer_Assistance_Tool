@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+html {
+    background-image: url('images/background.png');
+    background-size: cover;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+h3   {color: white;}
+
+label   {color: white;}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: auto;
+    border: none;
+    cursor: url('images/cursor.png'), auto;
+    display:block;
+    width: 7%;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.funnel {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 20px;
+  border-radius: 1000px;
+  padding: 2px;
+  vertical-align: middle;
+  background: #ccc;
+  box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+.funnel--nav {
+  display: block;
+  width: 100%;
+  height: 35px;
+}
+
+.funnel__segments {
+  display: table;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  border-radius: 1000px;
+  overflow: hidden;
+}
+
+.funnel__segment {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.9);
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  color: #666;
+  height: 100%;
+  display: table-cell;
+  background: #efefef;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+  border-left: 1px solid #999;
+  &:first-child {
+    border: none;
+  }
+}
+
+.funnel__segment--complete {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    background: #5ea700;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+    border-left: 1px solid #7BB296;
+}
+
+.funnel__segment--inProgress {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    background: #FFEE00;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+    border-left: 1px solid #7BB296;
+}
+
+.funnel__segment--inActive {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    background: #FF0010;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+    border-left: 1px solid #7BB296;
+}
+
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+
+</style>
+</head>
+<body>
+    <h3>Custom model submission</h3>
+    <div class="funnel funnel--nav">
+        <div class="funnel__segments">
+            <div class="funnel__segment funnel__segment--complete">Quiz</div>
+            <div class="funnel__segment funnel__segment--complete">Modelling</div>
+            <div class="funnel__segment funnel__segment--inProgress">Submit Model</div>
+        </div>
+    </div>
+</br>
+</br>
+    <div>
+      <form action="submission.php" method = "Post" enctype="multipart/form-data">
+        <label for="fname">First name </br> </label>
+		<input type="text" id="fname" name="fname" placeholder="Insert your first name.." required>
+        </br>
+        </br>
+		<label for="lname">Last name </br> </label>
+		<input type="text" id="lname" name="lname" placeholder="Insert your last name.." required>
+        </br>
+        </br>
+		<label for="email">Email </br> </label>
+		<input type="email" id="email" name="email" placeholder="Insert your email address.." required>
+        </br>
+        </br>
+        <input type="submit" value="Submit" name = "submit" style="float: left;">
+      </form>
+    </div>
+</body>
+</html>

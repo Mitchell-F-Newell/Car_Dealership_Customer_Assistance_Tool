@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ACS Model Viewer</title>
+    <script type="text/javascript" src="https://static.sketchfab.com/api/sketchfab-viewer-1.1.0.js"></script>
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        html {
+            background-image: url('images/background.png');
+            background-size: cover;
+            max-height: 100%;
+            max-width: 100%;
+        }
+
+        h3   {color: white;}
+
+        label   {color: white;}
+
+        button {  height: 35px; width: 35px; margin: 15px; border: 1px solid #000; cursor: pointer; display: inline-block;}
+        
+		input[type=submit]{
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: auto;
+		  border: none;
+		  cursor: url('images/cursor.png'), auto;
+		  display:block;
+		  width: 20%;
+		  position: fixed;
+		  bottom: 30px;
+		  right: 30px; 
+		}
+		
+		.funnel {
+          position: relative;
+          display: inline-block;
+          width: 200px;
+          height: 20px;
+          border-radius: 1000px;
+          padding: 2px;
+          vertical-align: middle;
+          background: #ccc;
+          box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+        }
+
+        .funnel--nav {
+          display: block;
+          width: 100%;
+          height: 35px;
+        }
+
+        .funnel__segments {
+          display: table;
+          width: 100%;
+          height: 100%;
+          line-height: 1;
+          border-radius: 1000px;
+          overflow: hidden;
+        }
+
+        .funnel__segment {
+          font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-weight: 700;
+          text-shadow: 1px 1px 0 rgba(255,255,255,.9);
+          text-align: center;
+          vertical-align: middle;
+          text-transform: uppercase;
+          color: #666;
+          height: 100%;
+          display: table-cell;
+          background: #efefef;
+          background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+          border-left: 1px solid #999;
+          &:first-child {
+            border: none;
+          }
+        }
+
+        .funnel__segment--complete {
+            color: #fff;
+            text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+            background: #5ea700;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+            border-left: 1px solid #7BB296;
+        }
+
+        .funnel__segment--inProgress {
+            color: #fff;
+            text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+            background: #FFEE00;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+            border-left: 1px solid #7BB296;
+        }
+
+        .funnel__segment--inActive {
+            color: #fff;
+            text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+            background: #FF0010;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+            border-left: 1px solid #7BB296;
+        }
+
+        .viewer {
+            position: absolute;
+            top: 23%;
+            right: 10%;
+        }
+
+        .colors {
+            margin-left: 3%;
+            margin-top: 7%;
+            float: left;
+        }
+
+        .breaker {
+            margin-left: 20%;
+            margin-top: 7%;
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Color Selection</h3>
+    <div class="funnel funnel--nav">
+        <div class="funnel__segments">
+            <div class="funnel__segment funnel__segment--complete">Quiz</div>
+            <div class="funnel__segment funnel__segment--inProgress">Modelling</div>
+            <div class="funnel__segment funnel__segment--inActive">Submit Model</div>
+        </div>
+    </div>
+    <div class="breaker">
+    </div>
+    <div class="holder">
+        <div class="colors">
+            <h3>Exterior</h3>
+            <button id="Bl1Button" style="background:#020202"></button>
+            <br><button id="Wh1Button" style="background:#FAFAFA"></button>
+            <br><button id="Bu1Button" style="background:#00B1FC"></button>
+            <br><button id="Gr1Button" style="background:#00C823"></button>
+            <br><button id="Re1Button" style="background:#E90600"></button>
+        </div>
+        <div class="colors">
+            <h3>Interior</h3>
+            <button id="Or2Button" style="background:#CE3D1E"></button>
+            <br><button id="Bu2Button" style="background:#21c2df"></button>
+            <br><button id="Gr2Button" style="background:#5fad19"></button>
+        </div>
+        <div class="viewer">
+            <iframe src="" id="api-frame" allowfullscreen mozallowfullscreen="false" webkitallowfullscreen="false" width="800" height="500"></iframe>
+            <script type="text/javascript">
+            var iframe = document.getElementById('api-frame');
+            var client = new Sketchfab(iframe);
+
+            var model = ['f85386e2500748789a94ab0ecddcd03f', '170b1aab9c8f484f88b96323342cb7f7', 'f1aa91374ed8441286f2a8b8fb3171db',
+                         '83e6397efbc44450aa3f45f52f0d5c82', '0cba2ad117c44574b637fd049c880cf7', 'e21df4b344594ce49fc69e1261f56815',
+                         '462c1ba474d54e21babc655ed0aa2316', '8be3ef086b294d3bb6f9b83cd3cf24eb', '57dc92674912457b8ae72cc90c976762',
+                         'ff06fd7b7b4f4a93b56bba254a3ddc40', 'bc81451838614431a0c8ee2479668840', 'aaf0e42f663049c9b32deb31cbd78f48',
+                         'eed6424c41ea4ffb9220bf28578102b3', 'e0422654ecac489d9991d062d45039b7', 'eaa900599b05480e9296efec5fd3fcb7'];
+
+            var Bl1Button = document.getElementById('Bl1Button'),
+                Wh1Button = document.getElementById('Wh1Button'),
+                Bu1Button = document.getElementById('Bu1Button'),
+                Gr1Button = document.getElementById('Gr1Button'),
+                Re1Button = document.getElementById('Re1Button'),
+                Or2Button = document.getElementById('Or2Button'),
+                Bu2Button = document.getElementById('Bu2Button'),
+                Gr2Button = document.getElementById('Gr2Button');
+
+            var interior = 0;
+            var exterior = 0;
+
+            client.init( model[exterior*3 + interior], {
+                success: function onSuccess( api ){
+                    api.start();
+                    api.addEventListener( 'viewerready', function() {
+                        console.log( 'Viewer is ready' );
+                    } );
+                },
+                error: function onError() {
+                    console.log( 'Viewer error' );
+                },
+                autostart: 1,
+                preload: 1,
+                ui_stop: 0,
+                camera: 0
+            });
+
+            function loadModel( client, urlid ) {
+                    client.init( urlid, {
+                        success: function onSuccess( api ){
+                            api.start();
+                            api.addEventListener( 'viewerready', function() {
+                                console.log( 'Viewer is ready' );
+                            } );
+                        },
+                        error: function onError() {
+                            console.log( 'Viewer error' );
+                        },
+                        autostart: 1,
+                        preload: 1,
+                        ui_stop: 0,
+                        camera: 0
+                    });
+                }
+
+                Bl1Button.addEventListener('click', function() {
+                    exterior = 0;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Wh1Button.addEventListener('click', function() {
+                    exterior = 1;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Bu1Button.addEventListener('click', function() {
+                    exterior = 2;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Gr1Button.addEventListener('click', function() {
+                    exterior = 3;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Re1Button.addEventListener('click', function() {
+                    exterior = 4;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Or2Button.addEventListener('click', function() {
+                    interior = 0;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Bu2Button.addEventListener('click', function() {
+                    interior = 1;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+
+                Gr2Button.addEventListener('click', function() {
+                    interior = 2;
+                    loadModel(client, model[exterior*3 + interior]);
+                })
+            </script>
+        </div>
+    </div>
+	<form method="get" action="submission.html">
+		<input type="submit" value="Continue to submission page" name = "submit">
+    </div>
+</form>
+</body>
+</html>

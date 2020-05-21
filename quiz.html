@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+html {
+    background-image: url('images/background.png');
+    background-size: cover;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+h3   {color: white;}
+
+label   {color: white;}
+
+input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: auto;
+    border: none;
+    cursor: url('images/cursor.png'), auto;
+    display:block;
+    width: 7%;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+.funnel {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  height: 20px;
+  border-radius: 1000px;
+  padding: 2px;
+  vertical-align: middle;
+  background: #ccc;
+  box-shadow: inset 0 -1px 1px rgba(255,255,255,0.3);
+}
+
+.funnel--nav {
+  display: block;
+  width: 100%;
+  height: 35px;
+}
+
+.funnel__segments {
+  display: table;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+  border-radius: 1000px;
+  overflow: hidden;
+}
+
+.funnel__segment {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 rgba(255,255,255,.9);
+  text-align: center;
+  vertical-align: middle;
+  text-transform: uppercase;
+  color: #666;
+  height: 100%;
+  display: table-cell;
+  background: #efefef;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+  border-left: 1px solid #999;
+  &:first-child {
+    border: none;
+  }
+}
+
+.funnel__segment--complete {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    background: #5ea700;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+    border-left: 1px solid #7BB296;
+}
+
+.funnel__segment--inProgress {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    background: #FFEE00;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+    border-left: 1px solid #7BB296;
+}
+
+.funnel__segment--inActive {
+    color: #fff;
+    text-shadow: 1px 1px 0 rgba(0,0,0,.25);
+    background: #FF0010;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12) 51%, rgba(0, 0, 0, 0.04));
+    border-left: 1px solid #7BB296;
+}
+
+
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+}
+
+
+</style>
+</head>
+<body>
+    <h3>Automotive Compatibility Test</h3>
+    <div class="funnel funnel--nav">
+        <div class="funnel__segments">
+            <div class="funnel__segment funnel__segment--inProgress">Quiz</div>
+            <div class="funnel__segment funnel__segment--inActive">Modelling</div>
+            <div class="funnel__segment funnel__segment--inActive">Submit Model</div>
+        </div>
+    </div>
+</br>
+</br>
+    <div>
+      <form action="quizData.php" method = "Post" enctype="multipart/form-data">
+        <label for="vehicleType">What type of vehicle are you in the market for? </br> </label>
+        <select id="vehicleType" name="vehicleType" required>
+         <option value="SUV">SUV</option>
+         <option value="Truck">Truck</option>
+         <option value="Sedan">Sedan</option>
+         <option value="Coupe">Coupe</option>
+         <option value="Unknown">Unknown</option>
+         </select>
+        </br>
+        </br>
+        <label for="drivingYear">WIll you be driving year round? </br> </label>
+        <select id="drivingYear" name="drivingYear" required>
+         <option value="Yes">Yes</option>
+         <option value="No">No</option>
+         <option value="Unknown">Unknown</option>
+         </select>
+         </br>
+         </br>
+         <label for="drivingDuration">How many kilometers will you be driving per year? </br> </label>
+         <select id="drivingDuration" name="drivingDuration" required>
+          <option value="low">less than 10,000KM</option>
+          <option value="Medium">Between 10,000km and 50,000KM </option>
+          <option value="large">Greater than 50,000KM</option>
+          <option value="Unknown">Unknown</option>
+          </select>
+         </br>
+         </br>
+         <label for="ecoFriendly">Do you want an environmentally friendly vehicle? </br> </label>
+         <select id="ecoFriendly" name="ecoFriendly" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Unknown">Unknown</option>
+          </select>
+         </br>
+         </br>
+         <label for="fuelEfficiency">Is fuel efficiency important to you? </br> </label>
+         <select id="fuelEfficiency" name="fuelEfficiency" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Unknown">Unknown</option>
+          </select>
+         </br>
+         </br>
+         <label for="driveFrequency">How will you drive the vehicle? </br> </label>
+         <select id="vehicleType" name="vehicleType" required>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="rarely">Rarely (monthly or less)</option>
+          <option value="Unknown">Unknown</option>
+          </select>
+         </br>
+         </br>
+         <label for="driveType">What type of driving will you mainly be doing? </br> </label>
+         <select id="driveType" name="driveType" required>
+          <option value="city">City driving</option>
+          <option value="highway">Highway driving</option>
+          <option value="Unknown">Unknown</option>
+          </select>
+         </br>
+         </br>
+        <input type="submit" value="Submit" name = "submit" style="float: left;">
+      </form>
+    </div>
+</body>
+</html>
